@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service
+  labels:
+    {{- include "detaaltoolbox.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.mongoService.type }}
+  selector:
+    app: mongo
+    {{- include "detaaltoolbox.selectorLabels" . | nindent 4 }}
+  ports:
+{{- toYaml .Values.mongoService.ports | nindent 2 }}

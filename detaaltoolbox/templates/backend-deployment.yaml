@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "detaaltoolbox.fullname" . }}-backend
+  labels:
+  {{- include "detaaltoolbox.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.backend.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: backend
+    {{- include "detaaltoolbox.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: backend
+      {{- include "detaaltoolbox.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: backend
+        image: {{ .Values.backend.deployment.image.repository }}:{{ .Values.backend.deployment.image.tag }}
+        ports:
+        - containerPort: 30000
+          name: http
+        resources: {{- toYaml .Values.backend.deployment.resources | nindent 10 }}
