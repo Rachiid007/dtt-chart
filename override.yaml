@@ -1,0 +1,6 @@
+namespace:
+  name: isj
+
+frontend:
+  deployment:
+    apiURL: "http://taaltoolbox.be/api"

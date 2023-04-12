@@ -1,89 +1,5 @@
-# Default values for detaaltoolbox.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-replicaCount: 1
-
-image:
-  repository: nginx
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
-
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
-
-serviceAccount:
-  # Specifies whether a service account should be created
-  create: true
-  # Annotations to add to the service account
-  annotations: {}
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  name: ""
-
-podAnnotations: {}
-
-podSecurityContext:
-  {}
-  # fsGroup: 2000
-
-securityContext:
-  {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
-
-service:
-  type: ClusterIP
-  port: 80
-
-ingress:
-  enabled: true
-  className: ""
-  annotations:
-    {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: detaaltoolbox.be
-      paths:
-        - path: /
-          pathType: Prefix
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
-
-resources:
-  {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
-
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
+namespace:
+  name: default
 
 mongo:
   deployment:
@@ -121,8 +37,11 @@ backend:
   deployment:
     image:
       repository: rachiid007/dtt_backend
-      tag: works_with_ovh
+      tag: works_with_ovh2
       pullPolicy: Always
+      env:
+        postgresHost: isj-postgres-service
+        mongoURL: mongodb://isj-mongo-service:27017/de_taal_toolbox
     resources:
       limits:
         cpu: 500m
@@ -137,41 +56,19 @@ frontend:
   deployment:
     image:
       repository: rachiid007/dtt_frontend
-      tag: works_with_ovh
+      tag: works_with_ovh2
       pullPolicy: Always
+    apiURL: ""
     resources:
       limits:
-        cpu: 500m
-        memory: 1Gi
+        cpu: 250m
+        memory: 512Mi
       requests:
         cpu: 100m
         memory: 128Mi
     replicas: 1
 
-backendService:
-  ports:
-    - name: http
-      port: 30000
-      targetPort: 30000
-  type: NodePort
-
-frontendService:
-  ports:
-    - name: http
-      port: 80
-      protocol: TCP
-      targetPort: 80
-  type: NodePort
-
-mongoService:
-  ports:
-    - name: mongo-port
-      port: 27017
-      targetPort: 27017
-  type: ClusterIP
-
-postgresService:
-  ports:
-    - port: 5432
-      targetPort: 5432
-  type: ClusterIP
+service:
+  port: 80
+# ENV LOCAL_MONGO_URL=mongodb://mongo-service:27017/de_taal_toolbox
+# ENV POSTGRES_HOST=postgres-service

@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "detaaltoolbox.fullname" . }}-backend
+  namespace: {{ .Values.namespace.name }}
   labels:
   {{- include "detaaltoolbox.labels" . | nindent 4 }}
 spec:
@@ -19,6 +20,11 @@ spec:
       containers:
       - name: backend
         image: {{ .Values.backend.deployment.image.repository }}:{{ .Values.backend.deployment.image.tag }}
+        env:
+        - name: POSTGRES_HOST
+          value: {{ .Values.backend.deployment.image.env.postgresHost }}
+        - name: LOCAL_MONGO_URL
+          value: {{ .Values.backend.deployment.image.env.mongoURL }}
         ports:
         - containerPort: 30000
           name: http
