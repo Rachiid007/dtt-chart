@@ -7,14 +7,8 @@ mongo:
       repository: mongo
       tag: latest
       pullPolicy: IfNotPresent
-    resources:
-      limits:
-        cpu: 750m
-        memory: 1Gi
-      requests:
-        cpu: 100m
-        memory: 64Mi
-  replicas: 1
+    replicas: 1
+
 postgres:
   deployment:
     env:
@@ -24,31 +18,17 @@ postgres:
       repository: postgres
       tag: latest
       pullPolicy: IfNotPresent
-    resources:
-      limits:
-        cpu: "1"
-        memory: 2Gi
-      requests:
-        cpu: 100m
-        memory: 64Mi
-  replicas: 1
+    replicas: 1
 
 backend:
   deployment:
     image:
       repository: rachiid007/dtt_backend
-      tag: works_with_ovh2
+      tag: try_using_multiple_ingress
       pullPolicy: Always
       env:
-        postgresHost: isj-postgres-service
-        mongoURL: mongodb://isj-mongo-service:27017/de_taal_toolbox
-    resources:
-      limits:
-        cpu: 500m
-        memory: 1Gi
-      requests:
-        cpu: 100m
-        memory: 128Mi
+        postgresHost: postgres-service
+        mongoURL: mongodb://mongo-service:27017/de_taal_toolbox
     replicas: 1
 kubernetesClusterDomain: cluster.local
 
@@ -56,19 +36,10 @@ frontend:
   deployment:
     image:
       repository: rachiid007/dtt_frontend
-      tag: works_with_ovh2
+      tag: work_with_env_var
       pullPolicy: Always
     apiURL: ""
-    resources:
-      limits:
-        cpu: 250m
-        memory: 512Mi
-      requests:
-        cpu: 100m
-        memory: 128Mi
     replicas: 1
 
 service:
   port: 80
-# ENV LOCAL_MONGO_URL=mongodb://mongo-service:27017/de_taal_toolbox
-# ENV POSTGRES_HOST=postgres-service

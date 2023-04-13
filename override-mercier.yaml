@@ -1,0 +1,6 @@
+namespace:
+  name: mercier
+
+frontend:
+  deployment:
+    apiURL: "http://mercier.taaltoolbox.be/api"

@@ -3,4 +3,4 @@ namespace:
 
 frontend:
   deployment:
-    apiURL: "http://taaltoolbox.be/api"
+    apiURL: "http://isj.taaltoolbox.be/api"

@@ -20,10 +20,9 @@ spec:
       containers:
       - env:
         - name: API_URL
-          value: {{ .Values.frontend.deployment.apiUrl }}
+          value: {{ .Values.frontend.deployment.apiURL }}
         image: {{ .Values.frontend.deployment.image.repository }}:{{ .Values.frontend.deployment.image.tag }}
         name: frontend
         ports:
         - containerPort: 80
           name: http
-        resources: {{- toYaml .Values.frontend.deployment.resources | nindent 10 }}

@@ -6,7 +6,7 @@ metadata:
   labels:
   {{- include "detaaltoolbox.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.backend.deployment.replicas }}
+  replicas: {{ .Values.postgres.deployment.replicas }}
   selector:
     matchLabels:
       app: backend
@@ -28,4 +28,3 @@ spec:
         ports:
         - containerPort: 30000
           name: http
-        resources: {{- toYaml .Values.backend.deployment.resources | nindent 10 }}

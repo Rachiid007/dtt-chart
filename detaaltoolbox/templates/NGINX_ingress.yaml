@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  # prettier-ignore
+  namespace: {{ .Values.namespace.name }}
+  annotations:
+    nginx.ingress.kubernetes.io/ingress.class: nginx
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: {{ .Values.namespace.name }}.taaltoolbox.be
+      http:
+        paths:
+          - path: /api/
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.namespace.name }}-backend-service
+                port:
+                  number: 30000
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.namespace.name }}-frontend-service
+                port:
+                  number: 80

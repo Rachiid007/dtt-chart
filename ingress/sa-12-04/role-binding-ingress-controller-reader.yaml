@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ingress-controller-reader
+  namespace: nginx-ingress-controller
+subjects:
+  - kind: ServiceAccount
+    name: ingress-controller
+    namespace: nginx-ingress-controller
+roleRef:
+  kind: ClusterRole
+  name: ingress-reader
+  apiGroup: rbac.authorization.k8s.io

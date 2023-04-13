@@ -26,7 +26,6 @@ spec:
         ports:
         - containerPort: 27017
           name: mongo-port
-        resources: {{- toYaml .Values.mongo.deployment.resources | nindent 10 }}
         volumeMounts:
         - mountPath: /data/db
           name: mongo-storage
