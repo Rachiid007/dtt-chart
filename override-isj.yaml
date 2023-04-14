@@ -1,5 +1,6 @@
 namespace:
   name: isj
+  ingressClassName: isj-ingress-class
 
 frontend:
   deployment:

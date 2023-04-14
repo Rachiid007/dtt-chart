@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.namespace.name }}-mongo-service
+  name: mongo-service
   namespace: {{ .Values.namespace.name }}
   labels:
     {{- include "detaaltoolbox.labels" . | nindent 4 }}

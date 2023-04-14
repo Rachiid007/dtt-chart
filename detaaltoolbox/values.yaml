@@ -1,5 +1,6 @@
 namespace:
   name: default
+  ingressClassName: my-ingress-class
 
 mongo:
   deployment:

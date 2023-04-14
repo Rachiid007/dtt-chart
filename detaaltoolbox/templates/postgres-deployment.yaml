@@ -18,21 +18,19 @@ spec:
       {{- include "detaaltoolbox.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-      - env:
-        - name: POSTGRES_USER
-          value: {{ quote .Values.postgres.deployment.env.postgresUser }}
-        - name: POSTGRES_PASSWORD
-          value: {{ quote .Values.postgres.deployment.env.postgresPassword }}
-        - name: KUBERNETES_CLUSTER_DOMAIN
-          value: {{ quote .Values.kubernetesClusterDomain }}
-        image: {{ .Values.postgres.deployment.image.repository }}:{{ .Values.postgres.deployment.image.tag }}
-        name: postgres
-        ports:
-        - containerPort: 5432
-          name: postgres-port
-        volumeMounts:
-        - mountPath: /var/lib/postgresql/data
-          name: postgres-storage
+        - name: postgres
+          image: {{ .Values.postgres.deployment.image.repository }}:{{ .Values.postgres.deployment.image.tag }}
+          env:
+            - name: POSTGRES_USER
+              value: {{ quote .Values.postgres.deployment.env.postgresUser }}
+            - name: POSTGRES_PASSWORD
+              value: {{ quote .Values.postgres.deployment.env.postgresPassword }}
+          ports:
+            - name: postgres-port
+              containerPort: 5432
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
       volumes:
-      - emptyDir: {}
-        name: postgres-storage
+        - name: postgres-storage
+          emptyDir: {}

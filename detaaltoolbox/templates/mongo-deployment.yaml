@@ -18,17 +18,14 @@ spec:
       {{- include "detaaltoolbox.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-      - env:
-        - name: KUBERNETES_CLUSTER_DOMAIN
-          value: {{ quote .Values.kubernetesClusterDomain }}
-        image: {{ .Values.mongo.deployment.image.repository }}:{{ .Values.mongo.deployment.image.tag }}
-        name: mongo
-        ports:
-        - containerPort: 27017
-          name: mongo-port
-        volumeMounts:
-        - mountPath: /data/db
-          name: mongo-storage
+        - name: mongo
+          image: {{ .Values.mongo.deployment.image.repository }}:{{ .Values.mongo.deployment.image.tag }}
+          ports:
+            - containerPort: 27017
+              name: mongo-port
+          volumeMounts:
+            - name: mongo-storage
+              mountPath: /data/db
       volumes:
-      - emptyDir: {}
-        name: mongo-storage
+        - name: mongo-storage
+          emptyDir: {}

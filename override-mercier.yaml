@@ -1,5 +1,6 @@
 namespace:
   name: mercier
+  ingressClassName: mercier-ingress-class
 
 frontend:
   deployment:
