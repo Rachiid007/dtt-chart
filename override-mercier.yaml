@@ -1,7 +1,4 @@
 namespace:
   name: mercier
-  ingressClassName: mercier-ingress-class
 
-frontend:
-  deployment:
-    apiURL: "http://mercier.taaltoolbox.be/api"
+url: mercier.taaltoolbox.be

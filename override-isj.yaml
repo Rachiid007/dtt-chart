@@ -1,7 +1,4 @@
 namespace:
   name: isj
-  ingressClassName: isj-ingress-class
 
-frontend:
-  deployment:
-    apiURL: "http://isj.taaltoolbox.be/api"
+url: isj.taaltoolbox.be
