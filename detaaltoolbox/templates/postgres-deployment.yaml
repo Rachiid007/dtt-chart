@@ -4,7 +4,7 @@ metadata:
   name: {{ include "detaaltoolbox.fullname" . }}-postgres-deployment
   namespace: {{ .Values.namespace.name }}
   labels:
-  {{- include "detaaltoolbox.labels" . | nindent 4 }}
+    {{- include "detaaltoolbox.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.postgres.deployment.replicas }}
   selector:
@@ -17,20 +17,23 @@ spec:
         app: postgres
       {{- include "detaaltoolbox.selectorLabels" . | nindent 8 }}
     spec:
+      volumes:
+        - name: postgres-pvc
+          persistentVolumeClaim:
+            # reference the PersistentVolumeClaim
+            claimName: postgres-pvc
       containers:
-        - name: postgres
-          image: {{ .Values.postgres.deployment.image.repository }}:{{ .Values.postgres.deployment.image.tag }}
+        - image: {{ .Values.postgres.deployment.image.repository }}:{{ .Values.postgres.deployment.image.tag }}
           env:
             - name: POSTGRES_USER
               value: {{ quote .Values.postgres.deployment.env.postgresUser }}
             - name: POSTGRES_PASSWORD
               value: {{ quote .Values.postgres.deployment.env.postgresPassword }}
+          name: postgres
           ports:
             - name: postgres-port
               containerPort: 5432
           volumeMounts:
-            - name: postgres-storage
-              mountPath: /var/lib/postgresql/data
-      volumes:
-        - name: postgres-storage
-          emptyDir: {}
+            # The volume mounts  for the container
+            - mountPath: /var/lib/postgres/data
+              name: postgres-pvc

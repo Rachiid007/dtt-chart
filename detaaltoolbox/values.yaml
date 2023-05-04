@@ -3,6 +3,8 @@ namespace:
   ingressClassName: my-ingress-class
 
 mongo:
+  pvc:
+    size: 4Gi
   deployment:
     image:
       repository: mongo
@@ -11,6 +13,8 @@ mongo:
     replicas: 1
 
 postgres:
+  pvc:
+    size: 6Gi
   deployment:
     env:
       postgresPassword: postgres
@@ -25,7 +29,7 @@ backend:
   deployment:
     image:
       repository: rachiid007/dtt_backend
-      tag: try_using_multiple_ingress
+      tag: try_reconnect_postgres
       pullPolicy: Always
       env:
         postgresHost: postgres-service
@@ -37,7 +41,7 @@ frontend:
   deployment:
     image:
       repository: rachiid007/dtt_frontend
-      tag: work_with_env_var
+      tag: try_reconnect_postgres
       pullPolicy: Always
     apiURL: ""
     replicas: 1

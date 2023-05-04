@@ -1,4 +1,0 @@
-controller:
-  serviceAccount:
-    name: nginx-ingress-controller
-  watchNamespace: ""

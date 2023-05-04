@@ -28,3 +28,9 @@ spec:
         ports:
         - containerPort: 30000
           name: http
+        # readinessProbe:
+        #   httpGet:
+        #     path: /api/ready
+        #     port: http
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 5

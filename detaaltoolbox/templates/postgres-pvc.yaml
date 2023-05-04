@@ -1,0 +1,15 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: postgres-pvc
+  # prettier-ignore
+  namespace: {{ .Values.namespace.name }}
+  labels:
+  {{- include "detaaltoolbox.labels" . | nindent 4 }}
+spec:
+  storageClassName: csi-cinder-high-speed
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.postgres.pvc.size }}
