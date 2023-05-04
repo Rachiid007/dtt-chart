@@ -20,7 +20,7 @@ spec:
       containers:
       - env:
         - name: API_URL
-          value: http://{{ .Values.url }}/api
+          value: https://{{ .Values.url }}/api
         image: {{ .Values.frontend.deployment.image.repository }}:{{ .Values.frontend.deployment.image.tag }}
         name: frontend
         ports:
