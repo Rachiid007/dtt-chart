@@ -1,6 +1,5 @@
 namespace:
   name: default
-  ingressClassName: my-ingress-class
 
 mongo:
   pvc:
@@ -35,7 +34,6 @@ backend:
         postgresHost: postgres-service
         mongoURL: mongodb://mongo-service:27017/de_taal_toolbox
     replicas: 1
-kubernetesClusterDomain: cluster.local
 
 frontend:
   deployment:
