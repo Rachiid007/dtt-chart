@@ -1,23 +1,86 @@
-[Helm](https://helm.sh) must be installed to use the charts. Please refer to
-Helm's [documentation](https://helm.sh/docs) to get started.
+# HELM Chart - De Taal Toolbox app
 
-Once Helm has been set up correctly, add the repo as follows:
+Make sure that you have [Helm](https://helm.sh/docs/intro/install/) and [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) installed on your machine and that you are connected to a Kubernetes cluster.
 
-helm repo add <alias> https://<orgname>.github.io/helm-charts
+### Add the Helm repository
 
-If you had already added this repo earlier, run `helm repo update` to retrieve
-the latest versions of the packages. You can then run `helm search repo
-<alias>` to see the charts.
+```bash
+helm repo add dtt-chart https://rachiid007.github.io/dtt-chart
+```
 
-To install the <chart-name> chart:
+This command adds the repository under the alias dtt-chart. You can replace dtt-chart with any other name of your choice.
 
-    helm install my-<chart-name> <alias>/<chart-name>
+### Update your repository list
 
-To uninstall the chart:
+```bash
+helm repo update
+```
 
-    helm delete my-<chart-name>
+This command updates your local repository list to reflect the latest changes on remote repositories.
 
-# dtt-chart
+### View the chart list
 
-Create a Chart Repository with GitHub Pages :
-https://helm.sh/docs/topics/chart_repository/#github-pages-example
+```bash
+helm search repo dtt-chart
+```
+
+This command displays the list of charts available in the dtt-chart repository.
+
+### Install the chart
+
+```bash
+helm install my-dtt dtt-chart/dtt-chart
+```
+
+This command installs the dtt-chart chart in the default namespace. The release name is my-dtt. You can replace my-dtt with any other name of your choice.
+
+### Install the chart with custom values.yaml file
+
+You can find the default values.yaml file [here](https://github.com/Rachiid007/dtt-chart/blob/main/charts/values.yaml).
+
+If you want to override the default values, you can create a custom values.yaml file and use it to install the chart.
+
+For example, if you want to override the default values for the `namespace.name` and `url` parameters, you can create a custom values.yaml file with the following content:
+
+```yaml
+namespace:
+  name: my-namespace
+
+url: https://my-dtt-subdomain.taaltoolbox.be
+```
+
+Then, you can use the following command to install the chart with your custom values.yaml file:
+
+```bash
+helm install my-dtt dtt-chart/dtt-chart -f values.yaml
+```
+
+### Upgrade the chart
+
+If you want to upgrade the tag of the image used by the frontend deployment, you can use the following command:
+
+```bash
+helm upgrade my-dtt dtt-chart/dtt-chart --reuse-values --set=frontend.deployment.image.tag=new_tag
+```
+
+This command upgrades the chart with the new tag of the image used by the frontend deployment. The --reuse-values flag reuses the values from the previous installation.
+
+### View releases
+
+```bash
+helm list
+```
+
+This command displays the list of installed releases.
+
+### Uninstall the chart
+
+```bash
+helm uninstall my-dtt
+```
+
+### Remove the Helm repository
+
+```bash
+helm repo remove dtt-chart
+```
