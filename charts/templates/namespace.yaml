@@ -2,4 +2,4 @@ apiVersion: v1
 kind: Namespace
 metadata:
   # prettier-ignore
-  name: {{ .Values.namespace.name }}
+  name: {{ default "default" .Values.namespace.name }}

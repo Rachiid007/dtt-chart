@@ -1,5 +1,7 @@
 namespace:
-  name: default
+  name:
+
+url:
 
 mongo:
   pvc:
@@ -41,7 +43,6 @@ frontend:
       repository: rachiid007/dtt_frontend
       tag: try_reconnect_postgres
       pullPolicy: Always
-    apiURL: ""
     replicas: 1
 
 service:
