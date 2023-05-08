@@ -29,8 +29,8 @@ postgres:
 backend:
   deployment:
     image:
-      repository: rachiid007/dtt_backend
-      tag: try_reconnect_postgres
+      repository: rachiid007/dtt_back
+      tag: 0.0.1
       pullPolicy: Always
       env:
         postgresHost: postgres-service
@@ -40,8 +40,8 @@ backend:
 frontend:
   deployment:
     image:
-      repository: rachiid007/dtt_frontend
-      tag: try_reconnect_postgres
+      repository: rachiid007/dtt_front
+      tag: 0.0.1
       pullPolicy: Always
     replicas: 1
 

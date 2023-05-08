@@ -27,11 +27,11 @@ spec:
         - name: LOCAL_MONGO_URL
           value: {{ .Values.backend.deployment.image.env.mongoURL }}
         ports:
-        - containerPort: 30000
+        - containerPort: 3000
           name: http
         # readinessProbe:
         #   httpGet:
         #     path: /api/ready
         #     port: http
-        #   initialDelaySeconds: 5
-        #   periodSeconds: 5
+        #   initialDelaySeconds: 30
+        #   periodSeconds: 60
