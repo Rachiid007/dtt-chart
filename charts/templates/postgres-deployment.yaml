@@ -25,6 +25,8 @@ spec:
       containers:
         - image: {{ .Values.postgres.deployment.image.repository }}:{{ .Values.postgres.deployment.image.tag }}
           env:
+            - name: POSTGRES_DB
+              value: de_taal_toolbox
             - name: POSTGRES_USER
               value: {{ quote .Values.postgres.deployment.env.postgresUser }}
             - name: POSTGRES_PASSWORD
