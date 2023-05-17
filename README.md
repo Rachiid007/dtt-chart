@@ -2,6 +2,25 @@
 
 Make sure that you have [Helm](https://helm.sh/docs/intro/install/) and [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) installed on your machine and that you are connected to a Kubernetes cluster.
 
+Create an `override-traefik.yaml` file with the following content:
+
+```yaml
+additionalArguments:
+  - "--providers.kubernetesingress.ingressendpoint.publishedservice=traefik/traefik"
+```
+
+Install Traefik :
+
+```bash
+helm install -f override-traefik.yaml traefik traefik/traefik -n traefik --create-namespace
+```
+
+Install cert-manager :
+
+```bash
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.2/cert-manager.yaml
+```
+
 ### Add the Helm repository
 
 ```bash
