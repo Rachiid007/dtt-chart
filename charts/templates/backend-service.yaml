@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "detaaltoolbox.labels" . | nindent 4 }}
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: backend
     app.kubernetes.io/instance: {{ .Release.Name }}
